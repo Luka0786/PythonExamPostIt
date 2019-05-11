@@ -1,0 +1,12 @@
+{% include 'base.html' %}
+
+{% block title %}PostIt Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }} welcome to PostIt!
+{% else %}
+  <p>You are not logged in!</p>
+  <a href="{% url 'login' %}">Login</a>
+{% endif %}
+{% endblock %}
