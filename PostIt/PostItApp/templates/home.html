@@ -1,12 +1,13 @@
-{% include 'base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}PostIt Home{% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}
   Hi {{ user.username }} welcome to PostIt!
+  <p><a href="{% url 'PostItLogin:logout' %}">logout</a></p>
 {% else %}
   <p>You are not logged in!</p>
-  <a href="{% url 'login' %}">Login</a>
+  <a href="{% url 'PostItLogin:login' %}">Login</a>
 {% endif %}
 {% endblock %}

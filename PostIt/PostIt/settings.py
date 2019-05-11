@@ -27,12 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
 # Application definition
 
 INSTALLED_APPS = [
-    'PostItLogin',
-    'PostItApp',
+    'PostItApp.apps.PostitappConfig',
+    'PostItLogin.apps.PostitloginConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'PostIt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,4 +124,6 @@ STATIC_URL = '/static/'
 
 # Har vi lavet
 LOGIN_URL = '/accounts/login'
-LOGIN_REDIRECT_URL = '/'
+#redirecting using the specified name in PostItApp.urls
+LOGIN_REDIRECT_URL = 'PostItApp:home'
+LOGOUT_REDIRECT_URL = 'PostItApp:home'

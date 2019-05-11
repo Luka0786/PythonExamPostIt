@@ -6,5 +6,6 @@ from . import views
 app_name = 'PostItLogin'
 
 urlpatterns = [
+    path('', include('PostItApp.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
