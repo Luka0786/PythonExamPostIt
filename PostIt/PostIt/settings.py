@@ -32,8 +32,8 @@ SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 # Application definition
 
 INSTALLED_APPS = [
-    'PostItApp.apps.PostitappConfig',
-    'PostItLogin.apps.PostitloginConfig',
+    'postitapp',
+    'postitlogin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,3 +127,4 @@ LOGIN_URL = '/accounts/login'
 #redirecting using the specified name in PostItApp.urls
 LOGIN_REDIRECT_URL = 'PostItApp:home'
 LOGOUT_REDIRECT_URL = 'PostItApp:home'
+REDIRECT_URL = 'PostItApp:home'

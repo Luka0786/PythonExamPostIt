@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class PostitappConfig(AppConfig):
-    name = 'PostItApp'
+    name = 'postitapp'
