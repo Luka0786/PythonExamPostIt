@@ -32,14 +32,15 @@ SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 # Application definition
 
 INSTALLED_APPS = [
-    'postitapp',
-    'postitlogin',
-    'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.auth',       
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'postitlogin',    
+    'django.contrib.admin',
+    'postitapp',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -125,6 +126,14 @@ STATIC_URL = '/static/'
 # Har vi lavet
 LOGIN_URL = '/accounts/login'
 #redirecting using the specified name in PostItApp.urls
-LOGIN_REDIRECT_URL = 'PostItApp:home'
-LOGOUT_REDIRECT_URL = 'PostItApp:home'
-REDIRECT_URL = 'PostItApp:home'
+LOGIN_REDIRECT_URL = 'postitapp:home'
+LOGOUT_REDIRECT_URL = 'postitapp:home'
+#EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+#EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'postitpython@gmail.com'
+EMAIL_HOST_PASSWORD = 'postit1234'
