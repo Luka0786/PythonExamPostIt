@@ -1,0 +1,20 @@
+{% include 'base.html' %}
+
+{% block head %}
+<title>Profile</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <a href="{% url 'accounts:edit_profile' %}" style="text-decoration:none">Edit profile</a>
+    <br/>
+    <br/>
+    <p>Username: {{ user }}</p>
+    <p>First name: {{ user.first_name }}</p>
+    <p>Last name: {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+
+
+
+</div>
+{% endblock %}
