@@ -1,5 +1,6 @@
 {% include 'base.html' %}
 
+{% load static %}
 {% block head %}
 <title>Profile</title>
 {% endblock %}
@@ -13,8 +14,11 @@
     <p>First name: {{ user.first_name }}</p>
     <p>Last name: {{ user.last_name }}</p>
     <p>Email: {{ user.email }}</p>
-
-
+    {% if user.userprofile.image %}
+    <img src="{{ user.userprofile.image.url }}" width="240" >
+    {% else %}
+    <img src="{% static '/images/Default.png' %}" width="240" >
+    {% endif %}
 
 </div>
 {% endblock %}

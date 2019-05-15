@@ -123,6 +123,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'PostIt/media')
+
 # Har vi lavet
 LOGIN_URL = '/accounts/login'
 #redirecting using the specified name in PostItApp.urls
