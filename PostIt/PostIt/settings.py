@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'postitlogin',    
     'django.contrib.admin',
+    'django_cleanup',
     'postitapp',
     'accounts',
 ]

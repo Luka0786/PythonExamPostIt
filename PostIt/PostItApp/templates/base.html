@@ -40,7 +40,17 @@
           <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
         </div>
       </li>
+ 
     </ul>
+             <ul class="navbar-nav text-right nav-flex-icons">
+          <li class="nav-item avatar">
+            <a class="nav-brand p-0">
+              <label>{{user}} </label> 
+              <img class="border border-info" style="vertical-align: middle; width: 50px; height: 50px; border-radius: 50%;" 
+              src="{{ user.userprofile.image.url }}" ></img>
+            </a>
+          </li>
+        </ul>
   </div>
 </nav>
   <hr>

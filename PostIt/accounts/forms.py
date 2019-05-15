@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import EmailField, CharField
+from django.forms import EmailField, CharField, ModelForm
 from .models import UserProfile
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
@@ -29,3 +29,8 @@ class EditProfileForm(UserChangeForm):
         fields = ("username", "email", "first_name", "last_name")
 
 
+class EditAvatar(ModelForm):
+    
+    class Meta:
+        model = UserProfile
+        fields = ('image',)
