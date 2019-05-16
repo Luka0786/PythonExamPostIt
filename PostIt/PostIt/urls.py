@@ -22,9 +22,11 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = [
     url('^', include('django.contrib.auth.urls')),
-    path('app/', include('postitapp.urls')),
+    path('', include('postitapp.urls')),
     path('accounts/', include('accounts.urls')),
     path('', include('postitlogin.urls')), 
     path('admin/', admin.site.urls)
 
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
