@@ -1,0 +1,16 @@
+{% include 'base.html' %}
+<div class="container">
+    <h1>Posts</h1>
+<div>
+<ul>
+{% for post in posts %}
+    <div class="container border mb-3">
+        <p>Title: {{ post.title }}</p>
+        <hr>
+        <p>Author: {{ post.user.username }}</p>
+        <hr>        
+        <p>{{ post.body }}</p>    
+    </div>
+{% endfor %}
+</ul>
+

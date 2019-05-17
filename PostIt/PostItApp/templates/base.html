@@ -23,9 +23,9 @@
           View
         </a>
        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">All Posts</a>
+          <a class="dropdown-item" href="{% url 'postitapp:posts' %}">All Posts</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" >Your Posts</a>
+          <a class="dropdown-item" href="{% url 'postitapp:your_posts' %}">Your Posts</a>
         </div>
       </li>
       <li class="nav-item dropdown ">
