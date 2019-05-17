@@ -1,0 +1,24 @@
+{% load static %}
+
+
+<div style="width: 50%" class="container border rounded mb-3"> 
+            <p>Commented by {{comment.user.username}}:  
+                {% if comment.user.userprofile.image %}
+        <ul class="navbar-nav text-right nav-flex-icons">
+          <li class="nav-item avatar">
+            <a class="nav-brand p-0">
+              <img class="border border-info" style="vertical-align: middle; width: 50px; height: 50px; border-radius: 50%;" 
+              src="{{ comment.user.userprofile.image.url }}" ></img>
+            </a>
+          </li>
+        </ul>
+    {% else %}
+    <ul class="navbar-nav text-right nav-flex-icons">
+          <li class="nav-item avatar">
+            <a class="nav-brand p-0">
+              <img class="border border-info" style="vertical-align: middle; width: 50px; height: 50px; border-radius: 50%;" 
+              src="{% static '/images/Default.png' %}" ></img>
+            </a>
+          </li>
+        </ul>
+    {% endif %}

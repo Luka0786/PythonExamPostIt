@@ -23,9 +23,11 @@ def your_posts(request):
 
 def post(request, pk):
     post = get_object_or_404(PostModel, pk=pk)
+    comments = CommentModel.objects.all()
     if request.method == 'GET':
         context = {
-            'post': post
+            'post': post,
+            'comments': comments
         }
         return render(request, 'post.html', context)
 

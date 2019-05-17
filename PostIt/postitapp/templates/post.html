@@ -1,15 +1,31 @@
 {% include 'base.html' %}
-<div class="container">
-    <h5>Title: {{ post.title }}</h5>
-    <h6>Author: {{ post.user.username }}</h6>
-</div>
+<div class="container border rounded">
+    
+
 <ul>
 {% block body %}
-<div class="container border mb-3">
+
+<h3>{{ post.title }}</h3>
+<div class="mb-2">
+     {% include 'picture_own.html' %}
+</div>
+
+    
+<div class="container rounded border mb-3">
     <p>{{ post.body }}</p>    
 </div>
 
-{{post.comments.body}}
+<hr>
+<h5>Comments</h5>
+{% for comment in comments %}
+
+        {% include 'picture_comment.html' %}
+            </p> 
+            <label>{{ comment.body }}</label>    
+        </div>
+    </a>
+    {% endfor %}
 {% endblock %}
+
 </ul>
 
