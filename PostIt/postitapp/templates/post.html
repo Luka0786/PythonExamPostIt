@@ -1,16 +1,15 @@
 {% include 'base.html' %}
 <div class="container">
-    <h1>Posts</h1>
-<div>
+    <h5>Title: {{ post.title }}</h5>
+    <h6>Author: {{ post.user.username }}</h6>
+</div>
 <ul>
 {% block body %}
 <div class="container border mb-3">
-    <p>Title: {{ post.title }}</p>
-    <hr>
-    <p>Author: {{ post.user.username }}</p>
-    <hr>        
     <p>{{ post.body }}</p>    
 </div>
+
+{{post.comments.body}}
 {% endblock %}
 </ul>
 

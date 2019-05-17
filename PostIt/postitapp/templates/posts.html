@@ -5,7 +5,7 @@
 <div>
 <ul>
 {% for post in posts %}
-    <a href="{% url 'postitapp:post' %}" style="text-decoration: none; color:black">    
+    <a href="{% url 'postitapp:post' post.pk %}" style="text-decoration: none; color:black">    
         <div class="container border mb-3">
             <p>Title: {{ post.title }}</p>
             <hr>

@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.urls import reverse
 
-from .models import PostModel
+from .models import PostModel, CommentModel
 
 # Create your views here.
 def posts(request):
@@ -21,10 +21,11 @@ def your_posts(request):
         }
         return render(request, 'your_posts.html', context)
 
-def post(request):
+def post(request, pk):
+    post = get_object_or_404(PostModel, pk=pk)
     if request.method == 'GET':
         context = {
-            'post': request.post
+            'post': post
         }
         return render(request, 'post.html', context)
 
