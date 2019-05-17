@@ -1,0 +1,14 @@
+{% include 'base.html' %}
+<form action="{% url 'postitapp:create_post'  %}" method="post">
+    {% csrf_token %} 
+    <div class="container">
+        <label>Title</label>
+    <div class="form-group">     
+    <input class="form-control" type="text" name="title"></input>
+    <br/>
+    <label>Write your Postin</label>
+    <textarea class="form-control" rows="10" cols="60" name="body"></textarea>
+    </div>
+    <button type="submit" class="btn btn-info">Create post</button>
+    </div>
+</form>

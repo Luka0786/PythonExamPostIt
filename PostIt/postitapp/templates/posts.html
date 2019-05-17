@@ -1,16 +1,19 @@
 {% include 'base.html' %}
 <div class="container">
     <h1>Posts</h1>
+    <a href="{% url 'postitapp:create_post' %}">Create post</a>
 <div>
 <ul>
 {% for post in posts %}
-    <div class="container border mb-3">
-        <p>Title: {{ post.title }}</p>
-        <hr>
-        <p>Author: {{ post.user.username }}</p>
-        <hr>        
-        <p>{{ post.body }}</p>    
-    </div>
+    <a href="{% url 'postitapp:post' %}" style="text-decoration: none; color:black">    
+        <div class="container border mb-3">
+            <p>Title: {{ post.title }}</p>
+            <hr>
+            <p>Author: {{ post.user.username }}</p>
+            <hr>        
+            <p>{{ post.body }}</p>    
+        </div>
+    </a>
 {% endfor %}
 </ul>
 
