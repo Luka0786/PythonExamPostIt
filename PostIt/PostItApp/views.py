@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
-from django.urls import reverse
-
+from django.urls import reverse, resolve
 from .models import PostModel, CommentModel
+
 
 # Create your views here.
 def posts(request):
@@ -23,11 +23,15 @@ def your_posts(request):
 
 def post(request, pk):
     post = get_object_or_404(PostModel, pk=pk)
-    comments = CommentModel.objects.all()
+    comments_list = []
+    for p in CommentModel.objects.raw('SELECT * FROM postitapp_postmodel_comments WHERE postmodel_id = %s' % post.id):
+        comments_list.append(p)
+        
+    #comments = CommentModel.objects.all().filter(id=1)
     if request.method == 'GET':
         context = {
             'post': post,
-            'comments': comments
+            'comments': comments_list
         }
         return render(request, 'post.html', context)
 
@@ -45,20 +49,28 @@ def create_post(request):
     
     return HttpResponseBadRequest()
 
-"""def create_comment(request):
+
+
+def create_comment(request):
     if request.method == 'GET':
-        return render(request, 'todoapp/new.html')
+        return render(request, 'posts.html')
     
     if request.method == 'POST':
-        todo = Todo()
-        todo.user = request.user
-        todo.text = request.POST['text']
-        completed = request.POST.getlist('completed')
-        if len(completed) > 0:
-            todo.completed = True
-        else:
-            todo.completed = False
-        todo.save()
-        return HttpResponseRedirect(reverse('todoapp:index'))
+        post_id = request.POST['id']
+        post = get_object_or_404(PostModel, pk=post_id)
+        comment = CommentModel()
+        comment.user = request.user
+        comment.body = request.POST['text']
+        comment.save()
+        post.comments.add(comment)
+        
+        
+        
+        context = {
+            'post': post,
+            'comments': post.comments.all()
+        }
+
+        return render(request, 'post.html', context)
     
-    return HttpResponseBadRequest()"""
+    return HttpResponseBadRequest()

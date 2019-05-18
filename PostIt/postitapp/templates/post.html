@@ -7,7 +7,7 @@
 
 <h3>{{ post.title }}</h3>
 <div class="mb-2">
-     {% include 'picture_own.html' %}
+     {% include 'picture_post.html' %}
 </div>
 
     
@@ -27,5 +27,18 @@
     {% endfor %}
 {% endblock %}
 
+
+<form action="{% url 'postitapp:create_comment' %}" method="post">
+    {% csrf_token %} 
+    <div class="container">
+    <div class="form-group">     
+    <br/>
+    <input type="hidden" name="id" value="{{post.id}}">
+    <label>Write your comment to the Postin</label>
+    <textarea class="form-control" rows="10" cols="60" name="text"></textarea>
+    </div>
+    <button type="submit" class="btn btn-info">Create comment</button>
+    </div>
+</form>
 </ul>
 
