@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.urls import reverse, resolve
+from django.core.mail import send_mail
+
+
 from .models import PostModel, CommentModel
 
 
@@ -49,7 +52,14 @@ def create_post(request):
     
     return HttpResponseBadRequest()
 
-
+def notify_poster(post, comment):
+    send_mail(
+            'Someone commented on your post',
+            'Your post ' + post.title + ' got a new comment! ' + 'User ' + comment.user.username + ' commented on your post! ',
+            'postitpython@gmail.com',
+            [post.user.email],
+            fail_silently=False,
+        )
 
 def create_comment(request):
     if request.method == 'GET':
@@ -64,12 +74,15 @@ def create_comment(request):
         comment.save()
         post.comments.add(comment)
         
+        notify_poster(post, comment)
         
         
         context = {
             'post': post,
             'comments': post.comments.all()
         }
+
+        
 
         return render(request, 'post.html', context)
     

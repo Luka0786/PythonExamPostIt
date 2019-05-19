@@ -1,12 +1,16 @@
 {% include 'base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'postitapp/style.css' %}">
 <div class="container">
     <h1>Posts</h1>
-    <a href="{% url 'postitapp:create_post' %}">Create post</a>
+    <a style="text-decoration:none;" href="{% url 'postitapp:create_post' %}">Create post</a>
 <div>
+<br>
 <ul>
 {% for post in posts %}
-    <a href="{% url 'postitapp:post' post.pk %}" style="text-decoration: none; color:black">    
-        <div class="container border mb-3">
+<div>
+    <a  style="text-decoration:none; color: black;" href="{% url 'postitapp:post' post.pk %}" >    
+        <div class="container border rounded mb-3 hover">
             <p>Title: {{ post.title }}</p>
             <hr>
             <p>Author: {{ post.user.username }}</p>
@@ -14,6 +18,7 @@
             <p>{{ post.body }}</p>    
         </div>
     </a>
+    </div>
 {% endfor %}
 </ul>
 
