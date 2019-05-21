@@ -2,7 +2,10 @@
 <form action="{% url 'postitapp:create_post'  %}" method="post">
     {% csrf_token %} 
     <div class="container">
-        <label>Title</label>
+    {% if error  %}
+        <p style="color:red"><i>{{ error  }}</i></p>
+    {% endif  %}
+    <label>Title</label>
     <div class="form-group">     
     <input class="form-control" type="text" name="title"></input>
     <br/>

@@ -35,9 +35,13 @@
     <br/>
     <input type="hidden" name="id" value="{{post.id}}">
     <label>Write your comment to the Postin</label>
+    {% if error  %}
+        <p style="color:red"><i>{{ error  }}</i></p>
+    {% endif  %}
     <textarea class="form-control" rows="10" cols="60" name="text"></textarea>
     </div>
     <button type="submit" class="btn btn-info">Create comment</button>
+    
     </div>
 </form>
 </ul>

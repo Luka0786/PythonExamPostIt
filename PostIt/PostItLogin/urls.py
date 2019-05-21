@@ -7,5 +7,4 @@ app_name = 'postitlogin'
 
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
-
 ]
