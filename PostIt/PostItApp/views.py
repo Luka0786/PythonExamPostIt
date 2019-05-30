@@ -93,7 +93,7 @@ def notify_poster(post, comment):
             fail_silently=False,
         )
     
-
+@login_required
 def your_drafts(request):
     if request.method == 'GET':
         your_drafts = DraftModel.objects.filter(user=request.user)
@@ -102,6 +102,7 @@ def your_drafts(request):
         }
         return render(request, 'your_drafts.html', context)
 
+@login_required
 def draft(request, pk):
     draft = get_object_or_404(DraftModel, pk=pk)
         
