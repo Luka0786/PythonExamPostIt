@@ -17,3 +17,7 @@ class PostModel(models.Model):
     def __str__(self):
         return self.title
 
+class DraftModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=30)
+    body = models.TextField(validators=[MaxLengthValidator(3000)]) #3000 characters = one page 

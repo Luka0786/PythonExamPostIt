@@ -1,0 +1,22 @@
+{% include 'base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'postitapp/style.css' %}">
+
+<div class="container">
+    <h1>Your drafts</h1>
+<div>
+<ul>
+{% for draft in your_drafts %}
+  <a href="{% url 'postitapp:draft' draft.pk %}" style="text-decoration: none; color:black">     
+
+    <div class="container border mb-3 rounded hover">
+        <p>Title: {{ draft.title }}</p>
+        <hr>
+        <p>Author: {{ draft.user.username }}</p>
+        <hr>        
+        <p>{{ draft.body }}</p>    
+    </div>
+   </a>
+{% endfor %}
+</ul>
+

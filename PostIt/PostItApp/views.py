@@ -4,7 +4,7 @@ from django.urls import reverse, resolve
 from django.core.mail import send_mail
 
 
-from .models import PostModel, CommentModel
+from .models import PostModel, CommentModel, DraftModel
 
 
 # Create your views here.
@@ -43,12 +43,23 @@ def create_post(request):
         return render(request, 'create_post.html')
     
     if request.method == 'POST':
-        post = PostModel()
-        post.user = request.user
-        post.title = request.POST['title']
-        post.body = request.POST['body']
-        post.save()
-        return HttpResponseRedirect(reverse('postitapp:home'))
+        if 'post_submit' in request.POST:
+            print("POST SUBMIT")
+            post = PostModel()
+            post.user = request.user
+            post.title = request.POST['title']
+            post.body = request.POST['body']
+            post.save()
+            return HttpResponseRedirect(reverse('postitapp:home'))
+
+        if 'draft_submit' in request.POST:
+            print("DRAFT SUBMIT")
+            draft = DraftModel()
+            draft.user = request.user
+            draft.title = request.POST['title']
+            draft.body = request.POST['body']
+            draft.save()
+            return HttpResponseRedirect(reverse('postitapp:your_drafts'))
     
     return HttpResponseBadRequest()
 
@@ -60,6 +71,25 @@ def notify_poster(post, comment):
             [post.user.email],
             fail_silently=False,
         )
+    
+
+def your_drafts(request):
+    if request.method == 'GET':
+        your_drafts = DraftModel.objects.filter(user=request.user)
+        context = {
+            'your_drafts': your_drafts
+        }
+        return render(request, 'your_drafts.html', context)
+
+def draft(request, pk):
+    draft = get_object_or_404(DraftModel, pk=pk)
+        
+    if request.method == 'GET':
+        context = {
+            'draft': draft,
+        }
+
+        return render(request, 'post.html', context)
 
 def create_comment(request):
     if request.method == 'GET':

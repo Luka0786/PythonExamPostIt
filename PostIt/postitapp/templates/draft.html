@@ -1,0 +1,17 @@
+{% include 'base.html' %}
+<form action="{% url 'postitapp:draft'  %}" method="post">
+    {% csrf_token %} 
+    <div class="container">
+        <label>Title</label>
+    <div class="form-group">     
+    <input class="form-control" type="text" value="{{draft.title}}" name="title"></input>
+    <br/>
+    <label>Write your Postin</label>
+    <textarea class="form-control" rows="10" cols="60" name="body" value="{{draft.body}}"></textarea>
+    </div>
+    <button type="submit" name="post_submit" class="btn btn-info">Publish</button>
+    <button type"submit" name="draft_submit" class="btn btn-info">Save Draft</button>
+    </div>
+</form>
+
+
