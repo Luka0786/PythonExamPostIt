@@ -4,7 +4,9 @@
 
 <div class="container">
     <h1>Your Posts</h1>
+    <a style="text-decoration:none;" href="{% url 'postitapp:create_post' %}">Create post</a>
 <div>
+<br>
 <ul>
 {% for post in your_posts %}
     <a href="{% url 'postitapp:post' post.pk %}" style="text-decoration: none; color:black">    

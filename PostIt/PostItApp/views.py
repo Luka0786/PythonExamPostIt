@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.urls import reverse, resolve
@@ -8,6 +9,7 @@ from .models import PostModel, CommentModel, DraftModel
 
 
 # Create your views here.
+@login_required
 def posts(request):
     if request.method == 'GET':
         posts = PostModel.objects.all()
@@ -16,6 +18,7 @@ def posts(request):
         }
         return render(request, 'posts.html', context)
 
+@login_required
 def your_posts(request):
     if request.method =='GET':
         your_posts = PostModel.objects.filter(user=request.user)
@@ -24,6 +27,7 @@ def your_posts(request):
         }
         return render(request, 'your_posts.html', context)
 
+@login_required
 def post(request, pk):
     post = get_object_or_404(PostModel, pk=pk)
     comments_list = []
@@ -38,31 +42,33 @@ def post(request, pk):
         }
         return render(request, 'post.html', context)
 
+@login_required
 def create_post(request):
     if request.method == 'GET':
         return render(request, 'create_post.html')
     
     if request.method == 'POST':
-        if 'post_submit' in request.POST:
-            print("POST SUBMIT")
-            post = PostModel()
-            post.user = request.user
-            post.title = request.POST['title']
-            post.body = request.POST['body']
+        post = PostModel()
+        post.user = request.user
+        post.title = request.POST['title']
+        post.body = request.POST['body']
+        
+        print(len(post.title))
+        print(len(post.body))
+        if(len(post.title) > 30 or len(post.body) > 3000):
+                    
+            context = {
+                'error': 'Post too long. Title max length is 30 characters! Body max length is 3000 characters!',
+                
+            }
+            return render(request, 'create_post.html', context)
+        else:
             post.save()
             return HttpResponseRedirect(reverse('postitapp:home'))
-
-        if 'draft_submit' in request.POST:
-            print("DRAFT SUBMIT")
-            draft = DraftModel()
-            draft.user = request.user
-            draft.title = request.POST['title']
-            draft.body = request.POST['body']
-            draft.save()
-            return HttpResponseRedirect(reverse('postitapp:your_drafts'))
     
     return HttpResponseBadRequest()
 
+@login_required
 def notify_poster(post, comment):
     send_mail(
             'Someone commented on your post',
@@ -91,6 +97,7 @@ def draft(request, pk):
 
         return render(request, 'post.html', context)
 
+@login_required
 def create_comment(request):
     if request.method == 'GET':
         return render(request, 'posts.html')
@@ -101,17 +108,22 @@ def create_comment(request):
         comment = CommentModel()
         comment.user = request.user
         comment.body = request.POST['text']
-        comment.save()
-        post.comments.add(comment)
-        
-        notify_poster(post, comment)
-        
-        
-        context = {
-            'post': post,
-            'comments': post.comments.all()
-        }
-
+  
+        if(len(comment.body) > 1000):
+            
+            context = {
+                'error': 'Comment too long. Max length is 1000 characters!',
+                'post': post,
+                'comments': post.comments.all()
+            }
+        else:
+            comment.save()
+            post.comments.add(comment)
+            notify_poster(post, comment)
+            context = {
+                'post': post,
+                'comments': post.comments.all()
+            }   
         
 
         return render(request, 'post.html', context)
