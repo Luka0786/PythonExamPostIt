@@ -19,4 +19,4 @@ class PostModel(models.Model):
 class DraftModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=30)
-    body = models.TextField(validators=[MaxLengthValidator(3000)]) #3000 characters = one page 
+    body = models.TextField(max_length=3000, null=True) #3000 characters = one page 
