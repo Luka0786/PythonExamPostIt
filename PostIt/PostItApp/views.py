@@ -17,7 +17,7 @@ def posts(request):
             'posts': posts
         }
         return render(request, 'posts.html', context)
-
+    return HttpResponseBadRequest()
 @login_required
 def your_posts(request):
     if request.method =='GET':
@@ -26,7 +26,7 @@ def your_posts(request):
             'your_posts': your_posts
         }
         return render(request, 'your_posts.html', context)
-
+    return HttpResponseBadRequest()
 @login_required
 def post(request, pk):
     post = get_object_or_404(PostModel, pk=pk)
@@ -41,7 +41,7 @@ def post(request, pk):
             'comments': comments_list
         }
         return render(request, 'post.html', context)
-
+    return HttpResponseBadRequest()
 @login_required
 def create_post(request):
     if request.method == 'GET':
@@ -101,7 +101,7 @@ def your_drafts(request):
             'your_drafts': your_drafts
         }
         return render(request, 'your_drafts.html', context)
-
+    return HttpResponseBadRequest()
 @login_required
 def draft(request, pk):
     draft = get_object_or_404(DraftModel, pk=pk)
@@ -149,6 +149,7 @@ def draft(request, pk):
             else:
                 draft.save()
                 return HttpResponseRedirect(reverse('postitapp:your_drafts'))
+        return HttpResponseBadRequest()
 
 @login_required
 def create_comment(request):
