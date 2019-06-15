@@ -65,7 +65,6 @@ def create_post(request):
                 post.save()
                 return HttpResponseRedirect(reverse('postitapp:home'))
         if 'draft_submit' in request.POST:
-            print("DRAFT SUBMIT")
             draft = DraftModel()
             draft.user = request.user
             draft.title = request.POST['title']
@@ -102,6 +101,7 @@ def your_drafts(request):
         }
         return render(request, 'your_drafts.html', context)
     return HttpResponseBadRequest()
+    
 @login_required
 def draft(request, pk):
     draft = get_object_or_404(DraftModel, pk=pk)
@@ -125,7 +125,6 @@ def draft(request, pk):
                         
                 context = {
                     'error': 'Post too long. Title max length is 30 characters! Body max length is 3000 characters!',
-                    
                 }
                 return render(request, 'create_post.html', context)
             else:
@@ -134,7 +133,6 @@ def draft(request, pk):
                 return HttpResponseRedirect(reverse('postitapp:home'))
 
         if 'draft_save' in request.POST:
-            print("DRAFT SUBMIT")
             draft = DraftModel.objects.get(id=pk)
             draft.user = request.user
             draft.title = request.POST['title']
@@ -149,7 +147,7 @@ def draft(request, pk):
             else:
                 draft.save()
                 return HttpResponseRedirect(reverse('postitapp:your_drafts'))
-        return HttpResponseBadRequest()
+    return HttpResponseBadRequest()
 
 @login_required
 def create_comment(request):
